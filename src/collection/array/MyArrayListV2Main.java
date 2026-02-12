@@ -29,5 +29,12 @@ public class MyArrayListV2Main {
         list.add("f");
         System.out.println(list);
 
+        list.add(1, "real");
+        System.out.println(list);
+
+        Object remove1 = list.remove(1);
+        System.out.println("remove1=" + remove1);
+        System.out.println(list);
+
     }
 }
