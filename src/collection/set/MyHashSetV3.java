@@ -29,7 +29,9 @@ public class MyHashSetV3<E> implements MySet<E> {
     public boolean add(E value) {
         int index = hashIndex(value);
         LinkedList<E> bucket = buckets[index];
-        if (bucket.contains(value)) {
+        if (bucket.contains(value)) {   // E 클래스에서 equals() 오버라이딩 안해놓으면,
+                                        // == 비교함, 그러면 참조값 다 다르니까 걍 넣음
+                                        // equals() 오버라이딩 해놓으면 인스턴스에 저장된 값 비교해서 중복되면 안넣음
             return false;
         }
         bucket.add(value);
@@ -37,7 +39,11 @@ public class MyHashSetV3<E> implements MySet<E> {
         return true;
     }
     public int hashIndex(E value) {
-        int hashCode = value.hashCode();
+        int hashCode = value.hashCode();                // E 클래스에서 hashCode() 오버라이딩 안해놓으면,
+                                                        // 객체 참조값으로 hashCode() 호출하는데, 참조값으로 Object.hashCode()호출
+                                                        // 0x111.hashCode() 0x222.hashCode()
+                                                        // hashCode() 오버라이딩 해놓으면, 인스턴스 변수로 Objects.hashCode()호출
+                                                        // hashCode(10, 20) hashCode(10, 20)
         int hashIndex = Math.abs(hashCode) % capacity;
 
         return hashIndex;
